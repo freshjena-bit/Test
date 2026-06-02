@@ -10,14 +10,31 @@
 </head>
 <body>
     <div class="sidebar">
+    <div class="sidebar-header">
         <div class="logo">SonicBotnet</div>
-        <div class="menu">
-            <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
-            <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
-            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Logout</a>
-        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
+    <div class="menu" id="menu">
+        <a href="/" class="menu-item">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+        </a>
+        <a href="attack" class="menu-item">
+            <i class="fas fa-server"></i>
+            Panel
+        </a>
+        <a href="methods" class="menu-item">
+            <i class="fas fa-list-ul"></i>
+            Methods
+        </a>
+        <a href="{{ url_for('logout') }}" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </a>
+    </div>
+</div>
     <div class="main-content">
         <div class="content">
             <h2>L4</h2>
@@ -33,5 +50,12 @@
             <p>TCP Flood</p>
             <p>HTTPS-JYNX</p>
         </div>
+        <script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+toggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+});
+    </script>
 </body>
 </html>
