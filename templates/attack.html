@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>KrakenStresser | Attack</title>
+    <title>SonicBotnet | Attack</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">KrakenStresser</div>
+        <div class="logo">SonicBotnet</div>
         <div class="menu">
             <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
             <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
-            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Выйти с аккаунта</a>
+            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Logout</a>
         </div>
     </div>
     <div class="main-content">
@@ -24,16 +24,16 @@
          <h2>Panel</h2>
          <p></p>
          <p></p>
-         <label for="target">Цель:</label>
+         <label for="target">Target:</label>
          <input class="text-field__input" type="text" name="target" id="target" placeholder="Цель" value="">
 
-         <label for="port">Порт:</label>
+         <label for="port">Port:</label>
          <input class="text-field__input" type="text" name="port" id="port" placeholder="Порт" value="">
 
-         <label for="duration">Время атаки:</label>
+         <label for="duration">Time:</label>
          <input class="text-field__input" type="text" name="duration" id="duration" placeholder="Время аттаки" value="">
 
-         <label for="method">Метод атаки:</label>
+         <label for="method">Methods:</label>
          <select id="method" name="method" required>
             <optgroup label="Layer 4">
                 <option value="UDPFLOOD">UDP</option>
@@ -46,11 +46,11 @@
             </optgroup>
          </select><br>
 
-         <button class="btn">Развернуть атаку</button>
+         <button class="btn">Launch Attack</button>
         </div>
         </form>
           <div id="attack-message" style="display: none; color: #50c878; margin-top: 10px;">
-            Атака запущена!
+            Attack Launched!
         </div>
     </div>
     <script>
