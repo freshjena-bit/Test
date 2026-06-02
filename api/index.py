@@ -90,11 +90,16 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username in users and users[username] == password:
+        if (
+            username in users and
+            users[username]['password'] == password
+        ):
+            users[username]['online'] = True
             session['username'] = username
             return redirect(url_for('index'))
-        else:
-            flash('Неверный логин или токен!')
+
+        flash('Неверный логин или токен!')
+
     return render_template('login.html')
 
 
