@@ -53,7 +53,8 @@ def reset_users():
 def index2():
     if 'username' in session:
         update_user_data()
-        return render_template('base.html', username=session['username'], user_counts=user_counts, timestamps=timestamps)
+        return render_template('base.html', username=session['username'], total_users=total_users,
+    online_users=online_users, offline_users=offline_users, user_counts=user_counts, timestamps=timestamps)
     return redirect(url_for('login'))
 
 @app.route('/add_user', methods=['GET'])
