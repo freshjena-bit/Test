@@ -60,7 +60,7 @@ header,
 .content,
 .chart-container {
   background: #17181f;
-  border: 1px solid #374151;
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 20px;
