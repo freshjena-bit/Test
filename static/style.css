@@ -141,3 +141,48 @@ select:focus {
     padding: 16px;
   }
 }
+.sidebar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+@media screen and (max-width:768px){
+
+    .sidebar{
+        width:100%;
+        min-height:auto;
+        flex-direction:column;
+        align-items:stretch;
+        padding:15px;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .menu{
+        display:none !important;
+        width:100%;
+        margin-top:15px;
+    }
+
+    .menu.active{
+        display:flex !important;
+        flex-direction:column;
+    }
+
+    .menu-item{
+        width:100%;
+        padding:15px;
+    }
+      }
