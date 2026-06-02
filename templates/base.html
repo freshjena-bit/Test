@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrakenStresser | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">KrakenStresser</div>
+        <div class="menu">
+            <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
+            <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
+            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Выйти с аккаунта</a>
+            <a href="/add_user" class="menu-item"><i class="fas fa-user-plus"></i>Добавить юзера</a>
+            <a href="/reset_users" class="menu-item"><i class="fas fa-undo"></i>Сбросить юзеров</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="content">
+            <h2>Dashboard</h2>
+            <p>Welcome <span class="username">{{ username if username else 'User' }}</span>, enjoy using!</p>
+        </div>
+        <div class="chart-container">
+            <h2>Total users</h2>
+            <canvas id="requestsChart" width="800" height="300"></canvas>
+        </div>
+    </div>
+    <script>
+        const ctx = document.getElementById('requestsChart').getContext('2d');
+        let userCounts = JSON.parse('{{ user_counts | tojson }}');
+        let timestamps = JSON.parse('{{ timestamps | tojson }}');
+      
+        const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timestamps,
+                    datasets: [{
+                        label: 'Total users',
+                        data: userCounts,
+                        fill: true,
+                        borderColor: '#43C6AC',
+                        backgroundColor: 'rgba(67,198,172, 0.3)',
+                        tension: 0.4,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#43C6AC',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total users', 
+                                color: 'white'
+                            },
+                            ticks:{
+                                color: 'white'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.2)'
+                            },
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time',
+                                color: 'white'
+                            },
+                            ticks:{
+                                color: 'white'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.2)'
+                            },
+                        }
+                    },
+                    plugins: {
+                        legend:{
+                            labels: {
+                                color: 'white',
+                                font:{
+                                    size: 15
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+         function updateChart() {
+                fetch('/')  
+                    .then(response => response.text())
+                    .then(html => {
+                     const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newCounts = JSON.parse(doc.querySelector('script').textContent.match(/let userCounts = (\[.+\]);/)[1]);
+                    const newTimestamps = JSON.parse(doc.querySelector('script').textContent.match(/let timestamps = (\[.+\]);/)[1]);
+                    myChart.data.labels = newTimestamps;
+                    myChart.data.datasets[0].data = newCounts;
+                       myChart.update();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+        setInterval(updateChart, 2000); 
+    </script>
+</body>
+</html>

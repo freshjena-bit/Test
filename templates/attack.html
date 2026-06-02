@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>KrakenStresser | Attack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">KrakenStresser</div>
+        <div class="menu">
+            <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
+            <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
+            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Выйти с аккаунта</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <form action="{{ url_for('launch_attack') }}" method="post" id="attack-form">
+        <div class="content">
+         <h2>Panel</h2>
+         <p></p>
+         <p></p>
+         <label for="target">Цель:</label>
+         <input class="text-field__input" type="text" name="target" id="target" placeholder="Цель" value="">
+
+         <label for="port">Порт:</label>
+         <input class="text-field__input" type="text" name="port" id="port" placeholder="Порт" value="">
+
+         <label for="duration">Время атаки:</label>
+         <input class="text-field__input" type="text" name="duration" id="duration" placeholder="Время аттаки" value="">
+
+         <label for="method">Метод атаки:</label>
+         <select id="method" name="method" required>
+            <optgroup label="Layer 4">
+                <option value="UDPFLOOD">UDP</option>
+                <option value="UDPRAND">UDPRAND</option>
+            </optgroup>
+            <optgroup label="Layer 7">
+                <option value="HTTPS-JYNX">HTTPS-JYNX</option>
+                <option value="HTTPFLOOD">HTTP</option>
+                <option value="TLS">TLS</option>
+            </optgroup>
+         </select><br>
+
+         <button class="btn">Развернуть атаку</button>
+        </div>
+        </form>
+          <div id="attack-message" style="display: none; color: #50c878; margin-top: 10px;">
+            Атака запущена!
+        </div>
+    </div>
+    <script>
+     document.getElementById('attack-form').addEventListener('submit', function() {
+            document.getElementById('attack-message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
