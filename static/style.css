@@ -5,6 +5,7 @@ body {
   min-height: 100vh;
   color: #f3f4f6;
   overflow-x: hidden;
+  position: relative;
 
   background: linear-gradient(
     -45deg,
@@ -32,16 +33,54 @@ body {
   }
 }
 
+@keyframes floatGlow1 {
+  0%,100% {
+    transform: translate(0,0);
+  }
+
+  50% {
+    transform: translate(80px,-50px);
+  }
+}
+
+@keyframes floatGlow2 {
+  0%,100% {
+    transform: translate(0,0);
+  }
+
+  50% {
+    transform: translate(-80px,60px);
+  }
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:rgba(59,130,246,.10);
+    filter:blur(140px);
+    left:-150px;
+    top:25%;
+    animation:floatGlow1 15s ease-in-out infinite;
+    pointer-events:none;
+    z-index:-1;
+}
+
 body::after{
     content:'';
     position:fixed;
     width:500px;
     height:500px;
+    border-radius:50%;
     background:rgba(239,68,68,.08);
     filter:blur(150px);
+    right:-150px;
     top:-100px;
-    right:-100px;
+    animation:floatGlow2 18s ease-in-out infinite;
     pointer-events:none;
+    z-index:-1;
 }
 
 a {
