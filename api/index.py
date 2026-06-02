@@ -14,8 +14,14 @@ app = Flask(
 app.secret_key = 'Eralp13092012'
 
 users = {
-    'eralp': 'Eralp13092012',
-    'kiril': 'asybdhf854'
+    'eralp': {
+        'password': 'Eralp13092012',
+        'online': True
+    },
+    'kiril': {
+        'password': 'asybdhf854',
+        'online': False
+    }
 }
 
 user_counts = []
@@ -52,12 +58,26 @@ def reset_users():
 @app.route('/')
 def index2():
     if 'username' in session:
-        update_user_data()
-        return render_template(
-    'base.html',
-    username=session['username'], online_users=online_users, offline_users=offline_users, user_counts=user_counts, timestamps=timestamps)
-    return redirect(url_for('login'))
 
+        update_user_data()
+
+        online_users = sum(
+            1 for user in users.values()
+            if user.get('online')
+        )
+
+        offline_users = len(users) - online_users
+
+        return render_template(
+            'base.html',
+            username=session['username'],
+            online_users=online_users,
+            offline_users=offline_users,
+            user_counts=user_counts,
+            timestamps=timestamps
+        )
+
+    return redirect(url_for('login'))
 @app.route('/add_user', methods=['GET'])
 def add_user_route():
     add_user()
