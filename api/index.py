@@ -121,5 +121,5 @@ def launch_attack():
         requests.get(url)
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(debug=True, port=80, host='127.0.0.1')
+if __name__ == "__main__":
+    app.run(debug=True)
