@@ -45,10 +45,6 @@ def add_user():
 def reset_users():
     global users
     users = {
-    'eralp': 'Eralp13092012',
-    'eral22p': 'Eralp13092012',
-    'era34343lp': 'Eralp13092012',
-
     'kiril': 'asybdhf854'
     }
     user_counts.clear()
