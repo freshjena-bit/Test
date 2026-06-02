@@ -71,6 +71,13 @@
         </div>
     </div>
     <script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+toggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+});
+    </script>
+    <script>
      document.getElementById('attack-form').addEventListener('submit', function() {
             document.getElementById('attack-message').style.display = 'block';
         });
