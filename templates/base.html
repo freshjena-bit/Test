@@ -11,15 +11,38 @@
 </head>
 <body>
     <div class="sidebar">
+    <div class="sidebar-header">
         <div class="logo">SonicBotnet</div>
-        <div class="menu">
-            <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
-            <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
-            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Logout</a>
-            <a href="/add_user" class="menu-item"><i class="fas fa-user-plus"></i>Add User</a>
-            <a href="/reset_users" class="menu-item"><i class="fas fa-undo"></i>Reset User</a>
-        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <div class="menu" id="menu">
+        <a href="/" class="menu-item">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+        </a>
+        <a href="attack" class="menu-item">
+            <i class="fas fa-server"></i>
+            Panel
+        </a>
+        <a href="methods" class="menu-item">
+            <i class="fas fa-list-ul"></i>
+            Methods
+        </a>
+        <a href="/add_user" class="menu-item">
+            <i class="fas fa-user-plus"></i>
+            Add User
+        </a>
+        <a href="/reset_users" class="menu-item">
+            <i class="fas fa-undo"></i>
+            Reset User
+        </a>
+        <a href="{{ url_for('logout') }}" class="menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </a>
+    </div>
     </div>
     <div class="main-content">
         <div class="content">
@@ -110,6 +133,13 @@
             }
 
         setInterval(updateChart, 2000); 
+    </script>
+    <script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+toggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+});
     </script>
 </body>
 </html>
