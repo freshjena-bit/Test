@@ -49,8 +49,38 @@
             <h2>Dashboard</h2>
             <p>Welcome <span class="username">{{ username if username else 'User' }}</span>, enjoy using!</p>
         </div>
+        <div class="stats-container">
+
+    <div class="stat-card total">
+        <div class="stat-info">
+            <h3>Total Bot/Botnet</h3>
+            <h1>64</h1>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+    </div>
+    <div class="stat-card online">
+        <div class="stat-info">
+            <h3>Online Users</h3>
+            <h1>{{ online_users }}</h1>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-user-check"></i>
+        </div>
+    </div>
+    <div class="stat-card offline">
+        <div class="stat-info">
+            <h3>Offline Users</h3>
+            <h1>{{ offline_users }}</h1>
+        </div>
+        <div class="stat-icon">
+            <i class="fas fa-user-times"></i>
+        </div>
+    </div>
+        </div>
         <div class="chart-container">
-            <h2>Total users</h2>
+            <h2>Total Users</h2>
             <canvas id="requestsChart" width="800" height="300"></canvas>
         </div>
     </div>
@@ -64,7 +94,7 @@
                 data: {
                     labels: timestamps,
                     datasets: [{
-                        label: 'Total users',
+                        label: 'Total Users',
                         data: userCounts,
                         fill: true,
                         borderColor: '#43C6AC',
