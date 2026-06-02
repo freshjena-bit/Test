@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KrakenStresser | Dashboard</title>
+    <title>SonicBotnet | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">KrakenStresser</div>
+        <div class="logo">SonicBotnet</div>
         <div class="menu">
             <a href="/" class="menu-item"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="attack" class="menu-item"><i class="fas fa-server"></i>Panel</a>
             <a href="methods" class="menu-item"><i class="fas fa-list-ul"></i> Methods</a>
-            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Выйти с аккаунта</a>
-            <a href="/add_user" class="menu-item"><i class="fas fa-user-plus"></i>Добавить юзера</a>
-            <a href="/reset_users" class="menu-item"><i class="fas fa-undo"></i>Сбросить юзеров</a>
+            <a href="{{ url_for('logout') }}" class="menu-item"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            <a href="/add_user" class="menu-item"><i class="fas fa-user-plus"></i>Add User</a>
+            <a href="/reset_users" class="menu-item"><i class="fas fa-undo"></i>Reset User</a>
         </div>
     </div>
     <div class="main-content">
