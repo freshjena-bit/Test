@@ -16,7 +16,7 @@ app.secret_key = 'Eralp13092012'
 users = {
     'eralp': {
         'password': 'Eralp13092012',
-        'online': True
+        'online': False
     },
     'kiril': {
         'password': 'asybdhf854',
