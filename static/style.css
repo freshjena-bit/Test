@@ -271,7 +271,6 @@ select:focus {
     gap:20px;
 }
 
-.content,
 .stat-card{
     background: rgba(255,255,255,0.01);
     backdrop-filter: blur(6px);
