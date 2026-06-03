@@ -18,9 +18,9 @@ users = {
         'password': 'Eralp13092012',
         'online': False
     },
-    'kiril': {
-        'password': 'asybdhf854',
-        'online': False
+    'root': {
+        'password': 'password',
+        'online': True
     }
 }
 
