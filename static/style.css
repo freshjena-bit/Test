@@ -135,7 +135,10 @@ a {
 header,
 .content,
 .chart-container {
-  background: #17181f;
+  background: rgba(23, 24, 31, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: 24px;
