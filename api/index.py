@@ -162,12 +162,14 @@ def launch_attack():
 
     else:  # free user
         if method not in free_methods:
-            flash('Method ini hanya tersedia untuk user Premium!', 'error')
-            return redirect(url_for('index'))
+    flash('Method ini hanya tersedia untuk user Premium!', 'error')
+    return redirect(url_for('index'))
 
-    # Jalankan fitur yang diizinkan di sini
-            flash('Aksi berhasil dijalankan!', 'success')
-            return redirect(url_for('index'))
+# Kalau sampai sini berarti method diizinkan
+# Jalankan proses yang memang boleh dilakukan
+
+flash('Aksi berhasil dijalankan!', 'success')
+return redirect(url_for('index'))
 
     # lanjut kode attack di bawah sini
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
