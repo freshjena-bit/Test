@@ -157,14 +157,16 @@ def launch_attack():
 
     elif role == 'premium':
         if method not in free_methods + premium_methods:
-            return "Method not valid", 403
-
-    else:
-        if method not in free_methods:
-            flash('Method ini hanya tersedia untuk user Premium!')
+            flash('Method tidak valid!', 'error')
             return redirect(url_for('index'))
-            
-            flash('Attack Launched!', 'success')
+
+    else:  # free user
+        if method not in free_methods:
+            flash('Method ini hanya tersedia untuk user Premium!', 'error')
+            return redirect(url_for('index'))
+
+    # Jalankan fitur yang diizinkan di sini
+            flash('Aksi berhasil dijalankan!', 'success')
             return redirect(url_for('index'))
 
     # lanjut kode attack di bawah sini
