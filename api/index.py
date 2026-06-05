@@ -155,11 +155,11 @@ def launch_attack():
         allowed_methods = free_methods
 
     else:
-        flash('Role tidak diizinkan!', 'error')
+        flash('This Method For Premium User!', 'error')
         return redirect(url_for('index'))
 
     if method not in allowed_methods:
-        flash('Method tidak valid untuk role kamu!', 'error')
+        flash('Not Valid Method!', 'error')
         return redirect(url_for('index'))
 
     print(f"Attack: {target}:{port} {method} {duration}")
@@ -187,10 +187,10 @@ def launch_attack():
 
     except Exception as e:
         print("ERROR REQUEST:", e)
-        flash('Request gagal dikirim!', 'error')
+        flash('API Down!', 'error')
         return redirect(url_for('index'))
 
-    flash('Aksi berhasil dijalankan!', 'success')
+    flash('Attack Launched!', 'success')
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
