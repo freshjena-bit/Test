@@ -158,9 +158,10 @@ def launch_attack():
         if method not in free_methods + premium_methods:
             return "Method not valid", 403
 
-    else:
-        if method not in free_methods:
-            return "Premium Access", 403
+else:
+    if method not in free_methods:
+        flash('Method ini hanya tersedia untuk user Premium!')
+        return redirect(url_for('attack'))
         
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
