@@ -159,9 +159,11 @@ def launch_attack():
             return redirect(url_for('index'))
 
     else:  # free user
-    if method not in free_methods:
-        flash('Method ini hanya tersedia untuk user Premium!', 'error')
-        return redirect(url_for('index'))
+        if method not in free_methods:
+    flash('Method ini hanya tersedia untuk user Premium!', 'error')
+    return redirect(url_for('index'))
+
+# Kalau sampai sini berarti method diizinkan
 
     flash('Aksi berhasil dijalankan!', 'success')
     return redirect(url_for('index'))
