@@ -67,9 +67,6 @@
          <button class="btn">Launch Attack</button>
         </div>
         </form>
-          <div id="attack-message" style="display: none; color: #50c878; margin-top: 10px;">
-            Attack Launched!
-        </div>
     </div>
     <script>
 const toggle = document.getElementById('menuToggle');
@@ -78,11 +75,6 @@ toggle.addEventListener('click', () => {
     menu.classList.toggle('active');
 });
     </script>
-<script>
-document.getElementById('attack-form').addEventListener('submit', function() {
-    document.getElementById('attack-message').style.display = 'block';
-});
-</script>
     <script>
 const canvas = document.getElementById("bg-network");
 const ctx = canvas.getContext("2d");
