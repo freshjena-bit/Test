@@ -130,7 +130,7 @@ def index3():
         return redirect(url_for('login'))
     return render_template('methods.html')
 
-@app.route('/launch_attack', method=['POST'])
+@app.route('/launch_attack', methods=['POST'])
 def launch_attack():
     if 'username' not in session:
         return redirect(url_for('login'))
