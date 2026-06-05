@@ -25,7 +25,7 @@ users = {
         'online': True
     },
     'guest': {
-        'password': 'guest123',
+        'password': 'janspambabi',
         'role': 'free',
         'online': True
     }
