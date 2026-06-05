@@ -158,7 +158,7 @@ def launch_attack():
         if method not in free_methods + premium_methods:
             return "Method not valid", 403
 
-else:
+    else:
     if method not in free_methods:
         flash('Method ini hanya tersedia untuk user Premium!')
         return redirect(url_for('attack'))
