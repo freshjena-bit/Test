@@ -143,7 +143,7 @@ def launch_attack():
 
     role = session.get('role', 'free')
 
-    free_methods = ['FREE-scan']
+    free_methods = ['FREE-TLS']
     premium_methods = [
         'UDPFLOOD',
         'UDPRAND',
