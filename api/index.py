@@ -151,22 +151,21 @@ def launch_attack():
     ]
 
     if role == 'admin':
-        pass
+    pass
 
-    elif role == 'premium':
-        if method not in free_methods + premium_methods:
-            flash('Method tidak valid!', 'error')
-            return redirect(url_for('index'))
+elif role == 'premium':
+    if method not in free_methods + premium_methods:
+        flash('Method tidak valid!', 'error')
+        return redirect(url_for('index'))
 
-    else:  # free user
-        if method not in free_methods:
-    flash('Method ini hanya tersedia untuk user Premium!', 'error')
-    return redirect(url_for('index'))
+else:  # free user
+    if method not in free_methods:
+        flash('Method ini hanya tersedia untuk user Premium!', 'error')
+        return redirect(url_for('index'))
 
-# Kalau sampai sini berarti method diizinkan
-
-    flash('Aksi berhasil dijalankan!', 'success')
-    return redirect(url_for('index'))
+# Jika sampai sini berarti request diizinkan
+flash('Aksi berhasil dijalankan!', 'success')
+return redirect(url_for('index'))
     # lanjut kode attack di bawah sini
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
