@@ -130,8 +130,6 @@ def index3():
         return redirect(url_for('login'))
     return render_template('methods.html')
 
-
-@app.route('/launch_attack', methods=['POST'])
 @app.route('/launch_attack', methods=['POST'])
 def launch_attack():
     if 'username' not in session:
@@ -161,16 +159,12 @@ def launch_attack():
             return redirect(url_for('index'))
 
     else:  # free user
-        if method not in free_methods:
-    flash('Method ini hanya tersedia untuk user Premium!', 'error')
+    if method not in free_methods:
+        flash('Method ini hanya tersedia untuk user Premium!', 'error')
+        return redirect(url_for('index'))
+
+    flash('Aksi berhasil dijalankan!', 'success')
     return redirect(url_for('index'))
-
-# Kalau sampai sini berarti method diizinkan
-# Jalankan proses yang memang boleh dilakukan
-
-flash('Aksi berhasil dijalankan!', 'success')
-return redirect(url_for('index'))
-
     # lanjut kode attack di bawah sini
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
