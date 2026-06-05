@@ -130,7 +130,7 @@ def index3():
         return redirect(url_for('login'))
     return render_template('methods.html')
 
-@app.route('/launch_attack', methods=['POST'])
+@app.route('/launch_attack', method=['POST'])
 def launch_attack():
     if 'username' not in session:
         return redirect(url_for('login'))
@@ -142,8 +142,8 @@ def launch_attack():
 
     role = session.get('role', 'free')
 
-    free_methods = ['FREE-TLS']
-    premium_methods = [
+    free_method = ['FREE-TLS']
+    premium_method = [
         'UDPFLOOD',
         'UDPRAND',
         'HTTPS-JYNX',
@@ -151,19 +151,19 @@ def launch_attack():
     ]
 
     if role == 'admin':
-        allowed_methods = free_methods + premium_methods
+        allowed_method = free_method + premium_method
        
     elif role == 'premium':
-        allowed_methods = free_methods + premium_methods
+        allowed_method = free_method + premium_method
     
     elif role == 'free':
-        allowed_methods = free_methods
+        allowed_method = free_method
 
     else:
         flash('Role tidak diizinkan!', 'error')
         return redirect(url_for('index'))
 
-    if method not in allowed_methods:
+    if method not in allowed_method:
         flash('Method tidak valid untuk role kamu!', 'error')
         return redirect(url_for('index'))
 
