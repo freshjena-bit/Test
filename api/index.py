@@ -158,11 +158,6 @@ elif role == 'premium':
         flash('Method tidak valid!', 'error')
         return redirect(url_for('index'))
 
-else:  # free user
-    if method not in free_methods:
-        flash('Method ini hanya tersedia untuk user Premium!', 'error')
-        return redirect(url_for('index'))
-
         print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
         
 # Jika sampai sini berarti request diizinkan
