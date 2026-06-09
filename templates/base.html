@@ -1,236 +1,352 @@
+
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SonicBotnet | Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+:root {
+  --bg: rgb(28, 28, 28);
+}
+
+.header img { width: 35%; padding: 20px 40px 20px 40px; }
+body { display: grid;
+  place-content: center;
+  min-height: 100vh;
+  background-image: url("https://operation-poweroff.com/assets/background.png");
+  background-color: #1C1C1C;
+  background-position: right 0% bottom 60%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container-box {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 20px; 
+  width: 60%; 
+}
+
+.content {
+  flex: 1 1 100%;
+  margin: 10px 20px 10px 20px;
+  padding: 20px;
+  color: white;
+  background: rgb(28 28 28 / 15%);
+  border-radius: 15px;
+}
+
+.content h1 {
+  font-weight: 700;
+  font-size: 28px;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+}
+
+.content p {
+  font-weight: 300;
+  font-size: 18px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.box {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  background-color: #363636;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.text-box h2 {
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.wrapper {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.outer {
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 0px 0 rgb(8, 8, 8), 0px 0px 0px 2px black;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.inner {
+  width: 80px;
+  height: 80px;
+  box-shadow: 0px 0px 2px 0 rgb(8, 8, 8), inset 3px 3px 40px black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#number, #number-301, #number-7 {
+  color: white;
+  font-size: 2rem; 
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+#number-users {
+  color: white;
+  font-size: 2rem; 
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+
+#number-counter-2 {
+  color: white;
+  font-size: 2rem; 
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+svg {
+  width: 100px; 
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+circle {
+  cx: 50; 
+  cy: 50;
+  r: 45; 
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 11px; 
+  stroke-linecap: round;
+  stroke-dasharray: 628; 
+  stroke-dashoffset: 628;
+  animation: anim 1s ease forwards;
+  transform: rotateZ(-90deg);
+  transform-origin: center;
+}
+
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 250; /* Adjust to match new size */
+  }
+}
+
+.slider {
+  background-color: white;
+  padding: 2em;
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+@keyframes slides {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-58%);
+  }
+}
+
+.slider {
+  background-color: white;
+  padding: 2em;
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.logos {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.logos:before, .logos:after {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  z-index: 2;
+}
+
+.logos:before {
+  left: 0;
+  background: linear-gradient(to left, rgba(255,255,255,0), rgb(255, 255, 255));
+}
+
+.logos:after {
+  right: 0;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgb(255, 255, 255));
+}
+
+.logo_items {
+  display: inline-block;
+  animation: 35s slides infinite linear;
+}
+
+.logos:hover .logo_items {
+  animation-play-state: paused;
+}
+
+.logo_items img{
+  height: 100px;
+  padding-right: 3em;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 1024px) {
+  .container {
+    width: 100%;
+  }
+  .box {
+    flex: 1 1 calc(50% - 20px); /* 2 columns on tablet */
+  }
+  .header img {
+    width: 50%; /* Adjust logo size */
+  }
+}
+
+@media (max-width: 768px) {
+  .box {
+    flex: 1 1 90%; /* Stack in single column */
+    display: flex;
+    flex-direction: column;
+  }
+  .text-box h2 {
+    margin-top: 20px;
+  }
+  .header img {
+    width: 70%;
+  }
+  .container-box {
+   width: 100%; /* Make it take full width */
+ }
+
+  .wrapper{
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 20px; /* Smaller font on mobile */
+  }
+  .content p {
+    font-size: 16px;
+  }
+  .slider img {
+    width: 40px; /* Adjust slider image size */
+    height: 40px;
+  }
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Operation PowerOFF</title>
+<link rel="icon" type="image/x-icon" href="https://operation-poweroff.com/assets/favicon.ico">
 </head>
+
 <body>
-    <canvas id="bg-network"></canvas>
-    <div class="sidebar">
-    <div class="sidebar-header">
-        <div class="logo">SonicBotnet</div>
-        <button class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-    <div class="menu" id="menu">
-        <a href="/" class="menu-item">
-            <i class="fas fa-tachometer-alt"></i>
-            Dashboard
-        </a>
-        <a href="attack" class="menu-item">
-            <i class="fas fa-server"></i>
-            Panel
-        </a>
-        <a href="methods" class="menu-item">
-            <i class="fas fa-list-ul"></i>
-            Methods
-        </a>
-        <a href="/add_user" class="menu-item">
-            <i class="fas fa-user-plus"></i>
-            Add User
-        </a>
-        <a href="/reset_users" class="menu-item">
-            <i class="fas fa-undo"></i>
-            Reset User
-        </a>
-        <a href="{{ url_for('logout') }}" class="menu-item">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </a>
-    </div>
-    </div>
-    <div class="main-content">
+    <div class="container">
+      <div class="header">
+        <img src="https://operation-poweroff.com/assets/PowerOFF.png" alt="logo">
+      </div>  
+      <div class="container-box">
         <div class="content">
-            <h2>Dashboard</h2>
-            <p>Welcome <span class="username">{{ username if username else 'User' }}</span>, enjoy using!</p>
+          <h1>Operation PowerOff</h1>
+          <p>This website has been seized as part of Operation PowerOFF. Operation PowerOFF is an international law enforcement effort focused on shutting down DDoS-for-hire services, including booters and stressers. 
+          <br>
+          <br>
+          DDoS attacks are illegal. For years law enforcement agencies around the world have seized booter databases, arrested administrators, and collected information relating to the operation of these services, including information on the customers of these services. Anyone operating or utilizing DDoS services is subject to investigation, prosecution, and other law enforcement action.
+          </p>
         </div>
-        <div class="stats-container">
+       </div>
+      </div>
+      <div class="slider">
+        <div class="logos">
+          <div class="logo_items">
+          
+          <img src="https://operation-poweroff.com/assets/logoUS-FBI.svg" alt="Federal Bureau of Investigation">
+          <img src="https://operation-poweroff.com/assets/logoUS-DOJ.png" alt="Department of Justice">
+          <img src="https://operation-poweroff.com/assets/logoUS-HSI.png" alt="Department of Homeland Security">
+          <img src="https://operation-poweroff.com/assets/logoUS-DCIS.jpg" alt="Defense Criminal Investigative Service (DCIS)">
+          <img src="https://operation-poweroff.com/assets/logoEU.svg" alt="Europol">
+          <img src="https://operation-poweroff.com/assets/logoDE-BKA.png" alt="Bundeskriminalamt">
+          <img src="https://operation-poweroff.com/assets/logoDE-HLKA.png" alt="Hessisches Landeskriminalamt">                
+          <img src="https://operation-poweroff.com/assets/logoDE-GStA.png" alt="Generalstaatsanwaltschaft Frankfurt am Main">                
+          <img src="https://operation-poweroff.com/assets/logoFR-OFAC.png" alt="OFAC France">
+          <img src="https://operation-poweroff.com/assets/logoPT-PSP.png" alt="Polícia de Segurança Pública">
+          <img src="https://operation-poweroff.com/assets/logoPT-PJ.svg" alt="Polícia Judiciária">
+          <img src="https://operation-poweroff.com/assets/logoUK.png" alt="National Crime Agency">
+          <img src="https://operation-poweroff.com/assets/logoPL.png" alt="Centralne Biuro Zwalczania Cyberprzestępczości">
+          <img src="https://operation-poweroff.com/assets/logoLV.png" alt="Police Latvia">
+          <img src="https://operation-poweroff.com/assets/logoBR.png" alt="Policia Federal Brasil">
+          <img src="https://operation-poweroff.com/assets/logoNL.png" alt="Nationale Politie">
+          <img src="https://operation-poweroff.com/assets/logoFI-KRP.png" alt="Poliisi Keskusrikospoliisi">
+          <img src="https://operation-poweroff.com/assets/logoSE.jpg" alt="Polisen">
+          <img src="https://operation-poweroff.com/assets/logoJP-NPA.png" alt="National Police Agency Japan">
+          <img src="https://operation-poweroff.com/assets/logoCA-RCMP.png" alt="Royal Canadian Mounted Police">
+          <img src="https://operation-poweroff.com/assets/logoAU-AFP.png" alt="Australian Federal Police">
 
-    <div class="stat-card total">
-        <div class="stat-info">
-            <h3>Total Bot/Botnet</h3>
-            <h1>12</h1>
-        </div>
-        <div class="stat-icon">
-            <i class="fas fa-users"></i>
+          <img src="https://operation-poweroff.com/assets/logoUS-FBI.svg" alt="Federal Bureau of Investigation">
+          <img src="https://operation-poweroff.com/assets/logoUS-DOJ.png" alt="Department of Justice">
+          <img src="https://operation-poweroff.com/assets/logoUS-HSI.png" alt="Department of Homeland Security">
+          <img src="https://operation-poweroff.com/assets/logoUS-DCIS.jpg" alt="Defense Criminal Investigative Service (DCIS)">
+          <img src="https://operation-poweroff.com/assets/logoEU.svg" alt="Europol">
+          <img src="https://operation-poweroff.com/assets/logoDE-BKA.png" alt="Bundeskriminalamt">
+          <img src="https://operation-poweroff.com/assets/logoDE-HLKA.png" alt="Hessisches Landeskriminalamt">                
+          <img src="https://operation-poweroff.com/assets/logoDE-GStA.png" alt="Generalstaatsanwaltschaft Frankfurt am Main">                
+          <img src="https://operation-poweroff.com/assets/logoFR-OFAC.png" alt="OFAC France">
+          <img src="https://operation-poweroff.com/assets/logoPT-PSP.png" alt="Polícia de Segurança Pública">
+          <img src="https://operation-poweroff.com/assets/logoPT-PJ.svg" alt="Polícia Judiciária">
+          <img src="https://operation-poweroff.com/assets/logoUK.png" alt="National Crime Agency">
+          <img src="https://operation-poweroff.com/assets/logoPL.png" alt="Centralne Biuro Zwalczania Cyberprzestępczości">
+          <img src="https://operation-poweroff.com/assets/logoLV.png" alt="Police Latvia">
+          <img src="https://operation-poweroff.com/assets/logoBR.png" alt="Policia Federal Brasil">
+          <img src="https://operation-poweroff.com/assets/logoNL.png" alt="Nationale Politie">
+          <img src="https://operation-poweroff.com/assets/logoFI-KRP.png" alt="Poliisi Keskusrikospoliisi">
+          <img src="https://operation-poweroff.com/assets/logoSE.jpg" alt="Polisen">
+          <img src="https://operation-poweroff.com/assets/logoJP-NPA.png" alt="National Police Agency Japan">
+          <img src="https://operation-poweroff.com/assets/logoCA-RCMP.png" alt="Royal Canadian Mounted Police">
+          <img src="https://operation-poweroff.com/assets/logoAU-AFP.png" alt="Australian Federal Police">
+
+            </div>
         </div>
     </div>
-    <div class="stat-card online">
-        <div class="stat-info">
-            <h3>Online Users</h3>
-            <h1>{{ online_users }}</h1>
-        </div>
-        <div class="stat-icon">
-            <i class="fas fa-user-check"></i>
-        </div>
-    </div>
-    <div class="stat-card offline">
-        <div class="stat-info">
-            <h3>Offline Users</h3>
-            <h1>{{ offline_users }}</h1>
-        </div>
-        <div class="stat-icon">
-            <i class="fas fa-user-times"></i>
-        </div>
-    </div>
-        </div>
-        <div class="chart-container">
-            <h2>Total Users</h2>
-            <canvas id="requestsChart" width="800" height="300"></canvas>
-        </div>
-    </div>
-    <script>
-        const ctx = document.getElementById('requestsChart').getContext('2d');
-        let userCounts = JSON.parse('{{ user_counts | tojson }}');
-        let timestamps = JSON.parse('{{ timestamps | tojson }}');
-      
-        const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: timestamps,
-                    datasets: [{
-                        label: 'Total Users',
-                        data: userCounts,
-                        fill: true,
-                        borderColor: '#43C6AC',
-                        backgroundColor: 'rgba(67,198,172, 0.3)',
-                        tension: 0.4,
-                        pointBackgroundColor: '#ffffff',
-                        pointBorderColor: '#43C6AC',
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Total users', 
-                                color: 'white'
-                            },
-                            ticks:{
-                                color: 'white'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.2)'
-                            },
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Time',
-                                color: 'white'
-                            },
-                            ticks:{
-                                color: 'white'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.2)'
-                            },
-                        }
-                    },
-                    plugins: {
-                        legend:{
-                            labels: {
-                                color: 'white',
-                                font:{
-                                    size: 15
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-         function updateChart() {
-                fetch('/')  
-                    .then(response => response.text())
-                    .then(html => {
-                     const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const newCounts = JSON.parse(doc.querySelector('script').textContent.match(/let userCounts = (\[.+\]);/)[1]);
-                    const newTimestamps = JSON.parse(doc.querySelector('script').textContent.match(/let timestamps = (\[.+\]);/)[1]);
-                    myChart.data.labels = newTimestamps;
-                    myChart.data.datasets[0].data = newCounts;
-                       myChart.update();
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            }
-
-        setInterval(updateChart, 2000); 
-    </script>
-    <script>
-const toggle = document.getElementById('menuToggle');
-const menu = document.getElementById('menu');
-toggle.addEventListener('click', () => {
-    menu.classList.toggle('active');
-});
-    </script>
-    <script>
-const canvas = document.getElementById("bg-network");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-const particles = [];
-
-for(let i=0;i<40;i++){
-    particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        vx: (Math.random()-0.5)*0.4,
-        vy: (Math.random()-0.5)*0.4
-    });
-}
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    for(let p of particles){
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if(p.x<0||p.x>canvas.width) p.vx*=-1;
-        if(p.y<0||p.y>canvas.height) p.vy*=-1;
-
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,2,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,255,0.4)";
-        ctx.fill();
-    }
-
-    for(let i=0;i<particles.length;i++){
-        for(let j=i+1;j<particles.length;j++){
-
-            let dx=particles[i].x-particles[j].x;
-            let dy=particles[i].y-particles[j].y;
-            let dist=Math.sqrt(dx*dx+dy*dy);
-
-            if(dist<120){
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x,particles[i].y);
-                ctx.lineTo(particles[j].x,particles[j].y);
-                ctx.strokeStyle=`rgba(255,255,255,${0.15-(dist/1200)})`;
-                ctx.stroke();
-            }
-        }
-    }
-
-    requestAnimationFrame(animate);
-}
-
-animate();
-    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7410aac24741404095049cc3c05cbac1","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
